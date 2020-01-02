@@ -3,6 +3,8 @@
 ## To use
 ### Creating a new repo
 ```
+git clone https://github.com/josieesh/brie
+cd brie
 npm i -g
 brie mkrepo
 ```
