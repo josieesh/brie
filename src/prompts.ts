@@ -1,8 +1,4 @@
-import { Answers } from 'inquirer';
-
-export let localRepoPrompts: Array<Object> = [
-    
-]
+import { Frameworks } from './config/constants';
 
 export let newRemoteRepoPrompts: Array<Object>= [
     {
@@ -28,7 +24,22 @@ export let newRemoteRepoPrompts: Array<Object>= [
 ]
 
 export let newLocalRepoPrompts: Array<Object> = [
-        {
+    {
+        type: 'confirm',
+        name: 'withFramework',
+        message: 'Initialize with framework?'
+    },
+    {
+        type: 'list',
+        name: 'framework',
+        message: 'Which framework?',
+        choices: Object.values(Frameworks),
+        when: function( answers: any ) {
+            // Only run if user wants to initialize with Framework
+            return answers.withFramework;
+          }
+    },
+    {
         type: 'confirm',
         name: 'toInitRemote',
         message: 'Initialize remote repo as well?',
