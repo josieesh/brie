@@ -28,12 +28,7 @@ export let newRemoteRepoPrompts: Array<Object>= [
 ]
 
 export let newLocalRepoPrompts: Array<Object> = [
-    {
-        type: 'input',
-        name: 'repoName',
-        message: 'Repository name:'
-    },
-    {
+        {
         type: 'confirm',
         name: 'toInitRemote',
         message: 'Initialize remote repo as well?',

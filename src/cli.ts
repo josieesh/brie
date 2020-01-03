@@ -1,10 +1,8 @@
 #!/usr/bin/env node
 import './polyfills';
-import { Answers, prompt } from 'inquirer';
-import { newLocalRepoPrompts, newRemoteRepoPrompts } from './prompts';
-import localActions from './actions/local';
-import GitHubApiClient from './actions/remote';
-import { handleCreateRepoResponse } from './GitHubAPI/responseHandlers';
+import { Answers } from 'inquirer';
+
+import { getRepoName, getNewRepoInfo } from './helpers/promptHelpers/newRepoPromptHelper'
 
 
 var commander = require('commander');
@@ -15,21 +13,19 @@ commander
     .description('GitHub Repo Management CLI')
 
 commander
-    .command('mkrepo')
+    .command('mkrepo [name]')
     .alias('new')
-    .description('Create a new Repository. Option to initialize on GitHub.')
-    .action(() => {
-        inquirer.prompt(newLocalRepoPrompts).then((localValues: Answers) =>  {
-            if (localValues.toInitRemote) {
-                inquirer.prompt(newRemoteRepoPrompts).then((remoteValues: Answers) => {
-                    localActions.initLocalRepo(localValues);
-                    GitHubApiClient.createGitHubClient(remoteValues.personalAccessToken);
-                    remoteValues.repoName = localValues.repoName;
-                    handleCreateRepoResponse(remoteValues);                    
-                });
-            }
-            else localActions.initLocalRepo(localValues);
-        });
+    .description('Create a new repository. Option to initialize on GitHub.')
+    .action(async (name: string) => {
+        var repoName = "";
+        if (!name) {
+            repoName = await getRepoName();
+            getNewRepoInfo(repoName);
+        }
+        else {
+            repoName = name;
+            getNewRepoInfo(repoName);
+        }
     }
 )
 

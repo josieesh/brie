@@ -8,7 +8,7 @@ const fs = require('fs');
 const initLocalRepo = (answers: Answers) => {
     (async () => {
         const spinner = ora('Initializing new local repo ...').start();
-        fs.mkdir('./testrepo', (err: any) => {
+        fs.mkdir(`./${answers.repoName}`, (err: any) => {
             spinner.stop();
             if (err) {
                 console.log(chalk.red(err));
