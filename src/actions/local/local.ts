@@ -23,7 +23,6 @@ const initLocalRepo = (answers: Answers) => {
 }
 
 async function installDjango () {
-    console.log("inside install django");
     // TODO: configure for windows machines
     await Django.installDjangoUnix();
 }
