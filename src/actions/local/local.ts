@@ -10,16 +10,15 @@ const fs = require('fs');
 const initLocalRepo = (answers: Answers) => {
     (async () => {
         const spinner = ora('Initializing new local repo ...').start();
-        // fs.mkdir(`./${answers.repoName}`, (err: any) => {
-        //     spinner.stop();
-        //     if (err) {
-        //         console.log(chalk.red(err));
-        //     }
-        //     else {
-        //         console.log(chalk.green('New local repo initialized!'))
-        //     }
-        // });
-        spinner.stop();
+        fs.mkdir(`./${answers.repoName}`, (err: any) => {
+            spinner.stop();
+            if (err) {
+                console.log(chalk.red(err));
+            }
+            else {
+                console.log(chalk.green('New local repo initialized!'))
+            }
+        });
     })()
 }
 
